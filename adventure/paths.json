@@ -82,7 +82,7 @@
 									}
 								},
 								"3": {
-									"gameover": "You instantly get an email back \"Not so tough now, are ya!\" you die of lack of pride"
+									"gameover": "You instantly get an email back \"Not so tough now, are ya!\" you die due to lack of pride"
 								}
 							}
 						},
