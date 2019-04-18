@@ -1,0 +1,99 @@
+﻿{
+	"desc": "You wake up in your bed and remember nothing",
+	"choices": ["Check your phone", "Check your computer"],
+	"next_scenes": {
+		"1": {
+			"desc": "Your phone is locked. You don't know the password",
+			"choices": ["Go back"],
+			"art": null,
+			"next_scenes": {}
+		},
+		"2": {
+			"desc": "You use your computer that you left open",
+			"choices": ["Check google maps", "Check social media", "Check email"],
+			"art": null,
+			"next_scenes": {
+				"1": {
+					"desc": "You see that you live in Vancouver, Canada",
+					"choices": ["Go back"],
+					"art": null,
+					"next_scenes": {}
+				},
+				"2": {
+					"desc": "You see pictures of your some friends and family",
+					"choices": ["Go back"],
+					"art": null,
+					"next_scenes": {}
+				},
+				"3": {
+					"desc": "You check your email and see a threatening message - \"We know what you're up to, you better stop right now or else\"",
+					"choices": ["Respond to email", "Delete email"],
+					"art": null,
+					"next_scenes": {
+						"1": {
+							"desc": "You Decide to type out a response, how do you respond to the email?",
+							"choices": ["Agressive", "Confused", "Passive"],
+							"art": null,
+							"next_scenes": {
+								"1": {
+									"desc": "As you send the agressive response, you hear a loud banging on your door",
+									"choices": ["Check it out"],
+									"art": null,
+									"next_scenes": {
+										"1": {
+											"gameover": "A mafia member shoots you in the chest for responding rudely to his email"
+										}
+									}
+								},
+								"2": {
+									"desc": "You instantly get a response -\"Don't play dumb with me, you know what i'm talkimg about. I saw your \"work files\" folder\" ",
+									"choices": ["Minimize email and look at work files folder", "Shut down computer"],
+									"art": null,
+									"next_scenes": {
+										"1": {
+											"desc": "You open the work files folder on the computer, you see two files",
+											"choices": ["suspicions.docx", "experiment.txt"],
+											"art": null,
+											"next_scenes": {
+												"1": {
+													"desc": "The password to the other file is 123 enter a puzzle here",
+													"choices": ["Go back"],
+													"art": null,
+													"next_scenes": {}
+												},
+												"2": {
+													"desc": "The file is locked, looks like you need a password",
+													"choices": ["Enter password"],
+													"art": null,
+													"next_scenes": {
+														"1": {
+															"desc": "The file reads \"blah blah blah im a scientist and the antidote is in the drawer to the right\"",
+															"choices": ["Sucess!"],
+															"art": null,
+															"next_scenes": {}
+														}
+													}
+												}
+											}
+										},
+										"2": {
+											"gameover": "You shut down your computer and now you don't know the password. Good move"
+										}
+									}
+								},
+								"3": {
+									"gameover": "You instantly get an email back \"Not so tough now, are ya!\" you die of lack of pride"
+								}
+							}
+						},
+						"2": {
+							"gameover": "Why would you delete the email?"
+						}
+					}
+				}
+
+			}
+		}
+	},
+	"art": null
+}
