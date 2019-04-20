@@ -3,30 +3,30 @@
 	"choices": ["Check your phone", "Check your computer"],
 	"next_scenes": {
 		"1": {
-			"desc": "Your phone is locked. You don't know the password",
+			"desc": "Your phone is locked. You don't know the password.",
 			"choices": ["Go back"],
 			"art": null,
 			"next_scenes": {}
 		},
 		"2": {
-			"desc": "You use your computer that you left open",
+			"desc": "You use your computer that you left open.",
 			"choices": ["Check google maps", "Check social media", "Check email"],
 			"art": null,
 			"next_scenes": {
 				"1": {
-					"desc": "You see that you live in Vancouver, Canada",
+					"desc": "You see that you live in Vancouver, Canada.",
 					"choices": ["Go back"],
 					"art": null,
 					"next_scenes": {}
 				},
 				"2": {
-					"desc": "You see pictures of your some friends and family",
+					"desc": "You see pictures of some friends and family.",
 					"choices": ["Go back"],
 					"art": null,
 					"next_scenes": {}
 				},
 				"3": {
-					"desc": "You check your email and see a threatening message - \"We know what you're up to, you better stop right now or else\"",
+					"desc": "You check your email and see a threatening message - \"We know what you're up to, you better stop right now or else\".",
 					"choices": ["Respond to email", "Delete email"],
 					"art": null,
 					"next_scenes": {
@@ -36,53 +36,59 @@
 							"art": null,
 							"next_scenes": {
 								"1": {
-									"desc": "As you send the agressive response, you hear a loud banging on your door",
+									"desc": "As you send the agressive response, you hear a loud banging on your door.",
 									"choices": ["Check it out"],
 									"art": null,
 									"next_scenes": {
 										"1": {
-											"gameover": "A mafia member shoots you in the chest for responding rudely to his email"
+											"gameover": "A mafia member shoots you in the chest for responding rudely to his email."
 										}
 									}
 								},
 								"2": {
-									"desc": "You instantly get a response -\"Don't play dumb with me, you know what i'm talkimg about. I saw your \"work files\" folder\" ",
+									"desc": "You instantly get a response -\"Don't play dumb with me, you know what I'm talking about. I saw your \"work files\" folder\". ",
 									"choices": ["Minimize email and look at work files folder", "Shut down computer"],
 									"art": null,
 									"next_scenes": {
 										"1": {
-											"desc": "You open the work files folder on the computer, you see two files",
+											"desc": "You open the work files folder on the computer, you see two files.",
 											"choices": ["suspicions.docx", "experiment.txt"],
 											"art": null,
 											"next_scenes": {
 												"1": {
-													"desc": "The password to the other file is 123 enter a puzzle here",
+													"desc": "The password to the other file is 123 enter a puzzle here.",
 													"choices": ["Go back"],
 													"art": null,
 													"next_scenes": {}
 												},
 												"2": {
-													"desc": "The file is locked, looks like you need a password",
-													"choices": ["Enter password"],
+													"desc": "The file is locked, looks like you need a password.",
+													"choices": ["Enter password", "Go back"],
 													"art": null,
 													"next_scenes": {
 														"1": {
-															"desc": "The file reads \"blah blah blah im a scientist and the antidote is in the drawer to the right\"",
-															"choices": ["Sucess!"],
+															"desc": "Enter the password to the file",
+															"choices": ["1234", "ScienceIsCool123!%", "password", "aaaaah", "Correct Horse Battery Staple"],
 															"art": null,
-															"next_scenes": {}
+															"next_scenes": {
+																"1":{"gameover": "You're locked out of the file."},
+																"2":{"gameover": "You're locked out of the file."},
+																"3":{"gameover": "You're locked out of the file."},
+																"4":{"gamewin": "woo"},
+																"5":{"gameover": "You're locked out of the file."}
+															}
 														}
 													}
 												}
 											}
 										},
 										"2": {
-											"gameover": "You shut down your computer and now you don't know the password. Good move"
+											"gameover": "You shut down your computer and now you don't know the password. Good move."
 										}
 									}
 								},
 								"3": {
-									"gameover": "You instantly get an email back \"Not so tough now, are ya!\" you die due to lack of pride"
+									"gameover": "You instantly get an email back \"Not so tough now, are ya!\" you die due to lack of pride."
 								}
 							}
 						},
