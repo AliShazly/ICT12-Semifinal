@@ -61,13 +61,14 @@ class Story:
         stdscr.addstr(start_y_border, 0, ('_' * self.width))
 
 
-    def _draw_choices(self, stdscr, choices):
+    def _draw_choices(self, stdscr, choices, separation=2):
         start_y_choices = self.height//2 + self.height//4
-        option_num = 1
-        for i, j in zip(range(0, len(choices)*2, 2), choices):
-            x = self._center_width(j)
-            stdscr.addstr(start_y_choices + i, x, f'{option_num}: {j}')
-            option_num += 1
+        y_step = range(0, len(choices) * separation, separation)
+        option_nums = range(1, len(choices) + 1)
+
+        for step, option, num in zip(y_step, choices, option_nums):
+            x_val = self._center_width(option)
+            stdscr.addstr(start_y_choices + step, x_val, f'{num}: {option}')
 
 
     def _draw_art(self, stdscr, art):
