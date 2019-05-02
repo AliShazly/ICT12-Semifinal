@@ -63,7 +63,7 @@
 												},
 												"2": {
 													"desc": "The file is locked, looks like you need a password.",
-													"choices": ["Enter password", "Go back"],
+													"choices": ["Enter password (No going back after this)", "Go back"],
 													"art": null,
 													"next_scenes": {
 														"1": {
