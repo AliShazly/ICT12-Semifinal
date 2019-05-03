@@ -3,11 +3,13 @@ import curses
 import binascii
 import hashlib
 
+
 def hash_salt(pwd):
     random_bytes = os.urandom(8)
     salt = binascii.hexlify(random_bytes).decode('ascii')
-    hashed = hashlib.pbkdf2_hmac('sha256', b'password', b'salt', 100000)
-
+    hash_bytes = hashlib.pbkdf2_hmac('sha256', pwd.encode('utf-8'), salt.encode('utf-8'), 100000)
+    hashed_pwd = binascii.hexlify(hash_bytes)
+    return hashed_pwd, salt
 
 
 class Window:
@@ -74,11 +76,3 @@ class Login(Window):
 class CreateAcc(Window):
     def __init__(self):
         pass
-
-
-def main(stdscr):
-    test = Window(stdscr)
-    test.draw_options(['Test1','Test2','Test3','Test4'])
-
-
-curses.wrapper(main)
