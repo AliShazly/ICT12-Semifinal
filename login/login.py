@@ -1,12 +1,12 @@
+import os
 import curses
 import binascii
-import os
-
+import hashlib
 
 def hash_salt(pwd):
     random_bytes = os.urandom(8)
     salt = binascii.hexlify(random_bytes).decode('ascii')
-    print(salt)
+    hashed = hashlib.pbkdf2_hmac('sha256', b'password', b'salt', 100000)
 
 
 
