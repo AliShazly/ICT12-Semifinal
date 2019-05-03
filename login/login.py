@@ -1,8 +1,19 @@
 import curses
+import binascii
+import os
+
+
+def hash_salt(pwd):
+    random_bytes = os.urandom(8)
+    salt = binascii.hexlify(random_bytes).decode('ascii')
+    print(salt)
+
+
 
 class Window:
     def __init__(self, stdscr):
         self.stdscr = stdscr
+
 
     def _init_screen(self):
         self.stdscr.clear()
