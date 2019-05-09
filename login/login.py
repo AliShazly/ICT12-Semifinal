@@ -5,15 +5,6 @@ import hashlib
 import json
 
 
-def hash_salt(pwd, salt=None):
-    if salt is None:
-        random_bytes = os.urandom(8)
-        salt = binascii.hexlify(random_bytes).decode('ascii')
-    hash_bytes = hashlib.pbkdf2_hmac('sha256', pwd.encode('utf-8'), salt.encode('utf-8'), 100000)
-    hashed_pwd = binascii.hexlify(hash_bytes).decode('utf-8')
-    return hashed_pwd, salt
-
-
 class Window:
 
     def __init__(self, stdscr):
@@ -61,7 +52,8 @@ class Window:
         while True:
             choice = chr(self.stdscr.getch())
             if choice in (str(i) for i in range(1, len(args) + 1)):
-                return choice
+                choice_idx = int(choice) - 1
+                return choice_idx
 
     def multiple_inputs(self, *args, separation=5):
         self._init_screen()
@@ -85,7 +77,7 @@ class Window:
         if error:
             msg = f'ERROR: {msg} | Press enter to try again...'
         self.stdscr.addstr(self.height // 2, self._center_width(msg), msg)
-        msg_quit = 'Press "Q" to quit'
+        msg_quit = 'Press "q" to quit'
         self.stdscr.addstr(self.height // 2 + 5, self._center_width(msg_quit), msg_quit)
         if chr(self.stdscr.getch()) == 'q':
             raise SystemExit
@@ -93,14 +85,33 @@ class Window:
 
 class Login(Window):
 
-    def authenticate_user(self, path='./users.json'):
+    def _hash_salt(self, pwd, salt=None):
+        if salt is None:
+            random_bytes = os.urandom(8)
+            salt = binascii.hexlify(random_bytes).decode('ascii')
+        hash_bytes = hashlib.pbkdf2_hmac('sha256', pwd.encode('utf-8'), salt.encode('utf-8'), 100000)
+        hashed_pwd = binascii.hexlify(hash_bytes).decode('utf-8')
+        return hashed_pwd, salt
+
+    def _load_users(self, path='./users.json'):
+        try:
+            with open(path, 'r') as f:
+                data = json.load(f)
+        except json.decoder.JSONDecodeError:
+            data = {}
+        return data
+
+    def _write_users(self, data, path='./users.json'):
+        with open(path, 'w') as f:
+            json.dump(data, f, sort_keys=True, indent=4)
+
+    def authenticate_user(self):
         username, password = self.multiple_inputs(
             'Enter Username: ',
             'Enter Password: '
         )
 
-        with open(path, 'r') as f:
-            data = json.load(f)
+        data = self._load_users()
 
         try:
             if username in data.keys():
@@ -108,24 +119,20 @@ class Login(Window):
             else:
                 raise KeyError('User not found.')
 
-            if hash_salt(password, salt)[0] != hashed_pwd:
+            if self._hash_salt(password, salt)[0] != hashed_pwd:
                 raise ValueError('Password is incorrect.')
 
         except (ValueError, KeyError) as e:
             self.draw_message(e, error=True)
             return self.authenticate_user()
 
-        return True
+        return
+    
 
+class CreateAcc(Login):
 
-class CreateAcc(Window):
-
-    def new_user(self, path='./users.json'):
-        try:
-            with open(path, 'r') as f:
-                data = json.load(f)
-        except json.decoder.JSONDecodeError:
-            data = {}
+    def new_user(self):
+        data = self._load_users()
 
         username, pwd, confirm_pwd = self.multiple_inputs(
             'Enter Username: ',
@@ -134,32 +141,30 @@ class CreateAcc(Window):
         )
 
         if username in data.keys():
-            self.draw_message('Username already exists.', error=True)
+            self.draw_message('User already exists.', error=True)
             return self.new_user()
 
         if pwd != confirm_pwd:
             self.draw_message('Passwords do not match.', error=True)
             return self.new_user()
 
-        if not all((i.strip() for i in (username, pwd))):
+        if not all(i.strip() for i in (username, pwd)):
             self.draw_message('Username or password is empty.', error=True)
             return self.new_user()
 
-        hashed_pwd, salt = hash_salt(pwd)
+        hashed_pwd, salt = self._hash_salt(pwd)
         data[username] = [hashed_pwd, salt]
 
-        with open(path, 'w') as f:
-            json.dump(data, f, sort_keys=True, indent=4)
+        self._write_users(data)
 
 
 def main(stdscr):
     main_win = Window(stdscr)
     choice = main_win.draw_options('Login', 'Create Account')
-    if choice == '1':
+    if choice == 0:
         login_win = Login(stdscr)
         login_win.authenticate_user()
         login_win.draw_message('Success!')
-
     else:
         create_acc_win = CreateAcc(stdscr)
         create_acc_win.new_user()
