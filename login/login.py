@@ -127,9 +127,6 @@ class Login(Window):
             return self.authenticate_user()
 
         return
-    
-
-class CreateAcc(Login):
 
     def new_user(self):
         data = self._load_users()
@@ -166,7 +163,7 @@ def main(stdscr):
         login_win.authenticate_user()
         login_win.draw_message('Success!')
     else:
-        create_acc_win = CreateAcc(stdscr)
+        create_acc_win = Login(stdscr)
         create_acc_win.new_user()
         create_acc_win.draw_message('Success!')
 
