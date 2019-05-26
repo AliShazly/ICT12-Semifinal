@@ -1,0 +1,31 @@
+[
+    [
+        "How many bananas are in a banana?",
+        "1",
+        [
+            "32",
+            " 12",
+            " 1",
+            " 5"
+        ]
+    ],
+    [
+        "If a train is moving at 53mph, how many birds are flying in the sky at 10pm on the last Wednesday of april?",
+        "43",
+        null
+    ],
+    [
+        "What is 31+5",
+        "36",
+        null
+    ],
+    [
+        "How easy is programming?",
+        "very",
+        [
+            "extremely",
+            " very",
+            " not at all"
+        ]
+    ]
+]
